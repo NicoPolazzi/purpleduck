@@ -5,7 +5,8 @@ services:
     ports:
       - "8080:80"
     depends_on:
-      - duck-db
+      duck-db:
+        condition: service_healthy
 
   duck-db:
     image: purpleduck1423/ns-ctf:duck-db
@@ -15,3 +16,8 @@ services:
       MYSQL_DATABASE: duckdb
     ports:
       - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
