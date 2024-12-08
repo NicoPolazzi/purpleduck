@@ -1,0 +1,17 @@
+services:
+  duck-service:
+    image: purpleduck1423/ns-ctf:duck-service
+    container_name: duck-service
+    ports:
+      - "8080:80"
+    depends_on:
+      - duck-db
+
+  duck-db:
+    image: purpleduck1423/ns-ctf:duck-db
+    container_name: duck-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: duckdb
+    ports:
+      - "3306:3306"
